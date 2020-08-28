@@ -7,7 +7,7 @@ application:
       encoder: makinage.encoding.string
       - name: house_features
   operators:
-    multiply:
+    compute_house_features:
       factory: makinage_examples.house.features:compute_house_features
       sources:
         - house_values

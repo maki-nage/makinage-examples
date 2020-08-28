@@ -6,7 +6,7 @@ application:
     - name: house_values
       encoder: makinage.encoding.string
   operators:
-    multiply:
+    push_house_data:
       factory: makinage_examples.house.push:push_house_data
       sinks:
         - house_values
