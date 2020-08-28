@@ -1,0 +1,15 @@
+application:
+    name: house_features
+  kafka:
+    endpoint: "localhost"
+  topics:
+    - name: house_values
+      encoder: makinage.encoding.string
+      - name: house_features
+  operators:
+    multiply:
+      factory: makinage_examples.house.features:compute_house_features
+      sources:
+        - house_values
+      sinks:
+        - house_features

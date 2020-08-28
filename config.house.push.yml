@@ -1,0 +1,12 @@
+application:
+    name: push_house_data
+  kafka:
+    endpoint: "localhost"
+  topics:
+    - name: house_values
+      encoder: makinage.encoding.string
+  operators:
+    multiply:
+      factory: makinage_examples.house.push:push_house_data
+      sinks:
+        - house_values
