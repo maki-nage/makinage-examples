@@ -1,0 +1,13 @@
+application:
+    name: push_house_data
+kafka:
+  endpoint: "localhost"
+topics:
+  - name: house_features
+    encoder: makinage.encoding.json
+    start_from: beginning
+operators:
+  pull_house_predict:
+    factory: makinage_examples.house.pull:pull_house_predict
+    sources:
+      - house_features

@@ -1,6 +1,7 @@
 from collections import namedtuple
 import rx.operators as ops
 import rxsci.io.file as file
+import rxsci.framing.line as line
 
 
 def push_house_data(config):

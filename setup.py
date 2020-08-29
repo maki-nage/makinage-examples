@@ -30,8 +30,6 @@ setup(
     author_email='romain.picard@oakbits.com',
     packages=find_packages(),
     install_requires=install_requires,
-    setup_requires=pytest_runner,
-    tests_require=['pytest>=5.0.1'],
     platforms='any',
     classifiers=[
         'Development Status :: 3 - Alpha',

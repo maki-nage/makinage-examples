@@ -1,15 +1,17 @@
 application:
     name: house_features
-  kafka:
-    endpoint: "localhost"
-  topics:
-    - name: house_values
-      encoder: makinage.encoding.string
-      - name: house_features
-  operators:
-    compute_house_features:
-      factory: makinage_examples.house.features:compute_house_features
-      sources:
-        - house_values
-      sinks:
-        - house_features
+kafka:
+  endpoint: "localhost"
+topics:
+  - name: house_values
+    encoder: makinage.encoding.string
+    start_from: beginning
+  - name: house_features
+    encoder: makinage.encoding.json
+operators:
+  compute_house_features:
+    factory: makinage_examples.house.features:compute_house_features
+    sources:
+      - house_values
+    sinks:
+      - house_features

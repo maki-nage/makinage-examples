@@ -1,4 +1,8 @@
 from collections import namedtuple
+import rx
+import rx.operators as ops
+import rxsci as rs
+import rxsci.container.csv as csv
 
 
 Features = namedtuple('Features', ['label', 'pspeed_ratio', 'temperature', 'temperature_stddev'])
@@ -43,7 +47,7 @@ parser = csv.create_line_parser(
 
 def compute_house_features(config, data):    
     epsilon = 1e-5
-    features = data.pipe(
+    features = data.pipe(        
         csv.load(parser),
         rs.ops.map(lambda i: Features(
             label=i.house_overall,
@@ -64,9 +68,8 @@ def compute_house_features(config, data):
                     ),
                 )
             ),        
-        )),
+        )),        
         rs.ops.map(lambda i: Features(i[0].label, i[0].pspeed_ratio, i[0].temperature, i[1])),
-        ops.to_list()
     )
 
     return features,
