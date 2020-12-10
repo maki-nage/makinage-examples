@@ -45,9 +45,9 @@ parser = csv.create_line_parser(
 )
 
 
-def compute_house_features(config, data):    
+def compute_house_features(config, data):
     epsilon = 1e-5
-    features = data.pipe(        
+    features = data.pipe(
         csv.load(parser),
         rs.ops.map(lambda i: Features(
             label=i.house_overall,
@@ -55,10 +55,10 @@ def compute_house_features(config, data):
             temperature=i.temperature,
             temperature_stddev=0.0,
         )),
-        rs.ops.multiplex(rx.pipe(
+        rs.state.with_memory_store(rx.pipe(
             rs.data.roll(
                 window=60*6, stride=60,
-                pipeline=rs.tee_map(
+                pipeline=rs.ops.tee_map(
                     rx.pipe(
                         rs.ops.last(),
                     ),
@@ -67,9 +67,9 @@ def compute_house_features(config, data):
                         rs.math.stddev(reduce=True),
                     ),
                 )
-            ),        
-        )),        
-        rs.ops.map(lambda i: Features(i[0].label, i[0].pspeed_ratio, i[0].temperature, i[1])),
+            ),
+        )),
+        rs.ops.map(lambda i: i[0]._replace(temperature_stddev=i[1])),
     )
 
     return features,
