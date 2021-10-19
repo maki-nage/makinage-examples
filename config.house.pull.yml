@@ -1,13 +1,21 @@
 application:
-    name: push_house_data
+    name: pull_house_data
 kafka:
   endpoint: "localhost"
 topics:
   - name: house_features
     encoder: makinage.encoding.json
     start_from: beginning
+sinks:
+  console:
+    factory: makinage_examples.house.pull:print_to_console
+regulators:
+  - feedback: console
+    control: house_features
 operators:
-  pull_house_predict:
-    factory: makinage_examples.house.pull:pull_house_predict
+  forward_house_features:
+    factory: makinage_examples.house.pull:forward_house_features
     sources:
       - house_features
+    sinks:
+      - console

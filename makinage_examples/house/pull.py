@@ -4,9 +4,18 @@ import rxsci.io.file as file
 import rxsci.framing.line as line
 
 
-def pull_house_predict(config, data):
-    data.subscribe(
-        on_next=print,
-        on_error=lambda e: print(e),
-        on_completed=lambda: print("completed")
-    )
+def print_to_console():
+    def _print_to_console(data):
+        return data.pipe(
+            ops.do_action(
+                on_next=print,
+                on_error=lambda e: print(e),
+                on_completed=lambda: print("completed")
+            ),
+        )
+
+    return _print_to_console
+
+
+def forward_house_features(config, house_features):
+    return house_features,

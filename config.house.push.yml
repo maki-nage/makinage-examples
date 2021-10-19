@@ -5,8 +5,18 @@ kafka:
 topics:
   - name: house_values
     encoder: makinage.encoding.string
+sources:
+  house_data:
+    factory: makinage_examples.house.push:read_house_data
+    kwargs:
+      filename: "/opt/dataset/HomeC.csv"
+regulators:
+  - feedback: house_values
+    control: house_data
 operators:
-  push_house_data:
-    factory: makinage_examples.house.push:push_house_data
+  forward_house_data:
+    factory: makinage_examples.house.push:forward_house_data
+    sources:
+      - house_data
     sinks:
       - house_values

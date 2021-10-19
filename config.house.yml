@@ -8,6 +8,9 @@ topics:
     start_from: beginning
   - name: house_features
     encoder: makinage.encoding.json
+regulators:
+  - feedback: house_features
+    control: house_values
 operators:
   compute_house_features:
     factory: makinage_examples.house.features:compute_house_features
