@@ -1,0 +1,4 @@
+makinage>=0.8
+pandas
+plotly
+scikit-learn

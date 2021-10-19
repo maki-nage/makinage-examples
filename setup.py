@@ -16,7 +16,7 @@ except IOError:
 
 python_requires = '>=3.6'
 install_requires = [
-    'makinage>=0.4',
+    'makinage>=0.8',
 ]
 
 setup(
